@@ -134,14 +134,16 @@ DECL(s32, recvfrom,s32 s, void *buffer, s32 size, s32 flags,struct sockaddr *src
     char *result;
     bin_to_strhex((unsigned char *)buffer, result_size, &result);
     char *ip = NULL;
+    u16 port = 0;
     if(*addrlen > 0 && src_addr != NULL ){
         ip = inet_ntoa(((struct sockaddr_in *)src_addr)->sin_addr);
+        port = ((struct sockaddr_in *)src_addr)->sin_port;
     }
     if(result != NULL){
         if(ip == NULL){
             log_printf("[recvfrom] socket: %08X, flags %08X size: %08X data: %s\n",s,flags,result_size,result);
         }else{
-            log_printf("[recvfrom] socket: %08X, addr: %s, flags %08X size: %08X data: %s\n",s,ip,flags,result_size,result);
+            log_printf("[recvfrom] socket: %08X, addr: %s:%d , flags %08X size: %08X data: %s\n",s,ip,port,flags,result_size,result);
         }
     }else{
         log_printf("[recvfrom] socket: %08X, flags %08X size: %08X data: malloc failed\n",s,flags,result_size,result);
@@ -154,13 +156,15 @@ DECL(s32, sendto, s32 s, const void *buffer, s32 size, s32 flags, const struct s
     bin_to_strhex((unsigned char *)buffer, size, &result);
     if(result != NULL){
         char *ip = NULL;
+        u16 port = 0;
         if(dest_len > 0 && dest != NULL){
             ip = inet_ntoa(((struct sockaddr_in *)dest)->sin_addr);
+            port = ((struct sockaddr_in *)dest)->sin_port;
         }
         if(ip == NULL){
             log_printf("[sendto]   socket: %08X, flags %08X size: %08X data: %s\n",s,flags,size,result);
         }else{
-            log_printf("[sendto]   socket: %08X, addr: %s, flags %08X size: %08X data: %s\n",s,ip,flags,size,result);
+            log_printf("[sendto]   socket: %08X, addr: %s:%d, flags %08X size: %08X data: %s\n",s,ip,port,flags,size,result);
         }
     }else{
         log_printf("[sendto]   socket: %08X, flags %08X size: %08X data: malloc failed\n",s,flags,size,result);
