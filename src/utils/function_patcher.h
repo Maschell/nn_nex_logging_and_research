@@ -55,7 +55,7 @@ typedef struct {
     unsigned char functionType;
     unsigned char alreadyPatched;
 } hooks_magic_t;
-
+int setRealAddressByName(hooks_magic_t method_hooks[],int hook_information_size, const char * name,u32 value);
 void PatchInvidualMethodHooks(hooks_magic_t hook_information[],int hook_information_size, volatile unsigned int dynamic_method_calls[]);
 void RestoreInvidualInstructions(hooks_magic_t hook_information[],int hook_information_size);
 unsigned int GetAddressOfFunction(const char * functionName,unsigned int library);

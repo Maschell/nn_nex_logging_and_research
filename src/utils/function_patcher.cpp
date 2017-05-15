@@ -32,6 +32,17 @@
 #define DEBUG_LOG_DYN                                   0
 
 
+int setRealAddressByName(hooks_magic_t method_hooks[],int hook_information_size, const char * name,u32 value){
+    for(int i = 0; i < hook_information_size; i++){
+        if(strncmp(name,method_hooks[i].functionName,50) == 0){
+            method_hooks[i].realAddr = value;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
 /*
 * Patches a function that is loaded at the start of each application. Its not required to restore, at least when they are really dynamic.
 * "normal" functions should be patch with the normal patcher. Current Code by Maschell with the help of dimok. Orignal code by Chadderz.

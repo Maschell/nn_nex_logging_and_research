@@ -12,9 +12,8 @@
 #include "dynamic_libs/vpad_functions.h"
 #include "dynamic_libs/socket_functions.h"
 #include "dynamic_libs/sys_functions.h"
-#include "patcher/coreinit_function_patcher.h"
-#include "patcher/fs_function_patcher.h"
-#include "patcher/pad_function_patcher.h"
+#include "patcher/nsysnet_function_patcher.h"
+#include "patcher/game_function_patcher.h"
 #include "utils/function_patcher.h"
 #include "kernel/kernel_functions.h"
 #include "utils/logger.h"
@@ -43,7 +42,9 @@ extern "C" int Menu_Main(void){
 
     log_init("192.168.0.181");
 
-    log_printf("logging test\n");
+    //Disable/Enable logging of decrypted NSSL functions.
+    logNSSLRead = 1;
+    logNSSLWrite = 1;
 
     u32 * main_entry_addr = (u32*)*((u32*)OS_SPECIFICS->addr_OSTitle_main_entry);
 
@@ -85,23 +86,11 @@ extern "C" int Menu_Main(void){
         if(decryptencryptAddressInRPX != 0) decryptencrypt_ptr  = (u32*)((u32)main_entry_addr + (decryptencryptAddressInRPX-startAddressInRPX));
         //if(encryptAlgoAddressInRPX != 0) encryptAlgo_ptr        = (u32*)((u32)main_entry_addr + (encryptAlgoAddressInRPX-startAddressInRPX));
         //if(decryptAlgoAddressInRPX != 0) decryptAlgo_ptr        = (u32*)((u32)main_entry_addr + (decryptAlgoAddressInRPX-startAddressInRPX));
+
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_Encrypt",          (u32)encrypt_ptr);
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_Decrypt",          (u32)decrypt_ptr);
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_EncryptDecrypt",   (u32)decryptencrypt_ptr);
     }
-
-    log_printf("Setting method_hooks_coreinit[0].realAddr to %08X\n",(u32)encrypt_ptr);
-    log_printf("Setting method_hooks_coreinit[1].realAddr to %08X\n",(u32)decrypt_ptr);
-    log_printf("Setting method_hooks_coreinit[2].realAddr to %08X\n",(u32)decryptencrypt_ptr);
-    //log_printf("Setting method_hooks_coreinit[3].realAddr to %08X\n",(u32)encryptAlgo_ptr);
-    //log_printf("Setting method_hooks_coreinit[4].realAddr to %08X\n",(u32)decryptAlgo_ptr);
-
-    method_hooks_coreinit[0].realAddr = (u32)encrypt_ptr;
-    method_hooks_coreinit[1].realAddr = (u32)decrypt_ptr;
-    method_hooks_coreinit[2].realAddr = (u32)decryptencrypt_ptr;
-    //method_hooks_coreinit[3].realAddr = (u32)encryptAlgo_ptr;
-    //method_hooks_coreinit[4].realAddr = (u32)decryptAlgo_ptr;
-
-    //Disable/Enable logging of decrypted NSSL functions.
-    logNSSLRead = 0;
-    logNSSLWrite = 0;
 
     ApplyPatches();
 
@@ -135,9 +124,8 @@ extern "C" int Menu_Main(void){
     Patching all the functions!!!
 */
 void ApplyPatches(){
-    PatchInvidualMethodHooks(method_hooks_coreinit,     method_hooks_size_coreinit,     method_calls_coreinit);
-    //PatchInvidualMethodHooks(method_hooks_fs,           method_hooks_size_fs,           method_calls_fs);
-    //PatchInvidualMethodHooks(method_hooks_pad,          method_hooks_size_pad,          method_calls_pad);
+    PatchInvidualMethodHooks(method_hooks_nsysnet,     method_hooks_size_nsysnet,      method_calls_nsysnet);
+    PatchInvidualMethodHooks(method_hooks_game,        method_hooks_size_game,         method_calls_game);
 }
 
 /*
@@ -145,9 +133,8 @@ void ApplyPatches(){
 */
 
 void RestorePatches(){
-    RestoreInvidualInstructions(method_hooks_coreinit,  method_hooks_size_coreinit);
-    //RestoreInvidualInstructions(method_hooks_fs,        method_hooks_size_fs);
-    //RestoreInvidualInstructions(method_hooks_pad,       method_hooks_size_pad);
+    RestoreInvidualInstructions(method_hooks_nsysnet,  method_hooks_size_nsysnet);
+    RestoreInvidualInstructions(method_hooks_game,     method_hooks_size_game);
     KernelRestoreInstructions();
 }
 
