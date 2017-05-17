@@ -1,0 +1,116 @@
+0005000E101A4800 PhantomGame-WiiU-Shipping.rpx
+
+_start = 0x3c89c3c;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x324f70c;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x324f820;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x324f8b0;
+
+0005000E10193400 legendofkay.rpx
+
+_start = 0x24453d4;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x2496b94;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2496d28;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2496db8;
+
+0005000E10188C00 game.consumer.rpx
+
+_start = 0x3bc548c;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x3b37954;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x3b37ad4;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x3b37b64;
+
+0005000E101DF400 ferrum_app.rpx
+
+_start = 0x2e5e3d8;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x2963434;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2963548;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x29635d8;
+
+0005000E101C4C00 spaceTravel.rpx
+
+_start = 0x3af56e0;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x2e3c5ac;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2e3c72c;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2e3c7bc;
+
+0005000E10137000 game-m2.consumer.rpx
+
+_start = 0x399a01c;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x3934368;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x39344e8;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x3934578;
+
+0005000E10129000 DuckTales.rpx
+
+_start = 0x26a13ac;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x274a33c;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x274a4bc;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x274a54c;
+
+0005000E10111C00 San12_WiiU2.rpx
+
+_start = 0x25dc728;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x2688944;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2688ac4;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2688b54;
+
+0005000E1010C800 urals.rpx
+
+_start = 0x3336a08;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x30c0c48;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x30c0dc8;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x30c0e58;
+
+0005000E1017D800 ProjectZ.rpx
+
+_start = 0x29e3848;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x269f0d0;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x269f260;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x269f2ec;
+
+0005000E10144800 rs10_production.rpx
+
+_start = 0x2eea934;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x2e784f8;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2e78678;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2e78708;
+
+0005000E10200800 AxiomVerge.rpx
+
+_start = 0x2032fe0;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x2081074;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2081188;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2081218;
+
+0005000E101A6900 Ticket game.rpx
+
+_start = 0x247e950;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x22a2ca8;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x22a2e28;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x22a2eb8;
+
+0005000E101D7500 Minecraft.Client.rpx
+
+_start = 0x4131618;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x4053fa0;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x40540b4;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x4054144;
+
+0005000E101DD900 MN9Game.rpx
+_start = 0x370afc4;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x3783f60;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x3784074;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x3784104;
+
+0005000E1012B100 sonic2013.rpx
+
+_start = 0x37905f4;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x2b98480;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2b98600;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x2b98690;
+
+0005000E10176500 game.rpx
+_start = 0x246f774;
+EncryptDecrypt__Q3_2nn3nex13RC4EncryptionFPUcUi = 0x227160c;
+Encrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x227178c;
+Decrypt__Q3_2nn3nex13RC4EncryptionFPQ3_2nn3nex6Buffer = 0x227181c;
