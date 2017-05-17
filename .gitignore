@@ -48,3 +48,4 @@ Temporary Items
 
 /build
 *.elf
+WiiU/build/
