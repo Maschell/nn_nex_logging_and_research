@@ -1,3 +1,9 @@
 [submodule "src/dynamic_libs"]
 	path = WiiU/src/dynamic_libs
 	url = https://github.com/Maschell/dynamic_libs
+[submodule "PC/ghs-demangle"]
+	path = PC/ghs-demangle
+	url = https://github.com/Maschell/ghs-demangle
+[submodule "PC/rpl2elf"]
+	path = PC/rpl2elf
+	url = https://github.com/Maschell/rpl2elf
