@@ -24,6 +24,7 @@
 #include "nsysnet_function_patcher.h"
 
 #include "utils/logger.h"
+#include "utils/utils.h"
 
 /*
 DECL(s32, send, s32 s, const void *buffer, s32 size, s32 flags){
@@ -37,9 +38,10 @@ DECL(s32, send, s32 s, const void *buffer, s32 size, s32 flags){
     return real_send(s,buffer,size,flags);
 
 }
-
+*/
 DECL(s32, recv, s32 s, void *buffer, s32 size, s32 flags){
     s32 result_size = real_recv(s,buffer,size,flags);
+    if(!log_recv) return result_size;
     char *result;
     bin_to_strhex((unsigned char *)buffer, result_size, &result);
     if(result != NULL){
@@ -48,10 +50,11 @@ DECL(s32, recv, s32 s, void *buffer, s32 size, s32 flags){
         log_printf("[recv]     socket: %08X, flags %08X size: %08X data: malloc failed\n",s,flags,result_size);
     }
     return result_size;
-}*/
+}
 
 DECL(s32, recvfrom,s32 s, void *buffer, s32 size, s32 flags,struct sockaddr *src_addr, s32 *addrlen){
     s32 result_size = real_recvfrom(s,buffer,size,flags,src_addr,addrlen);
+    if(!log_recvfrom) return result_size;
     char *result;
     bin_to_strhex((unsigned char *)buffer, result_size, &result);
     char *ip = NULL;
@@ -73,6 +76,7 @@ DECL(s32, recvfrom,s32 s, void *buffer, s32 size, s32 flags,struct sockaddr *src
 }
 
 DECL(s32, sendto, s32 s, const void *buffer, s32 size, s32 flags, const struct sockaddr *dest, s32 dest_len){
+    if(!log_sendto) return real_sendto(s,buffer,size,flags,dest,dest_len);
     char *result;
     bin_to_strhex((unsigned char *)buffer, size, &result);
     if(result != NULL){
@@ -139,7 +143,7 @@ DECL(s32, NSSLRead, s32 connection, const void* buf, s32 len,s32 * read){
 
 hooks_magic_t method_hooks_nsysnet[] __attribute__((section(".data"))) = {
     //MAKE_MAGIC(send, LIB_NSYSNET, STATIC_FUNCTION),
-    //MAKE_MAGIC(recv, LIB_NSYSNET, STATIC_FUNCTION),
+    MAKE_MAGIC(recv, LIB_NSYSNET, STATIC_FUNCTION),
     MAKE_MAGIC(recvfrom, LIB_NSYSNET, STATIC_FUNCTION),
     MAKE_MAGIC(sendto, LIB_NSYSNET, STATIC_FUNCTION),
     MAKE_MAGIC(NSSLWrite, LIB_NSYSNET, STATIC_FUNCTION),

@@ -43,53 +43,51 @@ extern "C" int Menu_Main(void){
     log_init("192.168.0.181");
 
     //Disable/Enable logging of decrypted NSSL functions.
-    logNSSLRead = 1;
-    logNSSLWrite = 1;
+    logNSSLRead = 0;
+    logNSSLWrite = 0;
+
+    fullRC4 = 0;
+    logRC4 = 1;
+
+    log_recv = 1;
+    log_recvfrom = 1;
+    log_sendto = 1;
+
+    log_UnreliableProtocol_sendImpl = 1;
+    log_UnreliableProtocol_Receive = 1;
+
+    log_PacketEncDec_Encode = 0;
+    log_PacketEncDec_Decode = 0;
 
     u32 * main_entry_addr = (u32*)*((u32*)OS_SPECIFICS->addr_OSTitle_main_entry);
 
-    u32 * encrypt_ptr = 0;
-    u32 * decrypt_ptr = 0;
-    u32 * decryptencrypt_ptr = 0;
-
-    //u32 * encryptAlgo_ptr = 0;
-    //u32 * decryptAlgo_ptr = 0;
-
-    u32 startAddressInRPX = 0;             //Address of the start function
-    u32 encryptAddressInRPX = 0;           //Address of nn::nex::RC4Encryption::Encrypt
-    u32 decryptAddressInRPX = 0;           //Address of nn::nex::RC4Encryption::Decrypt
-    u32 decryptencryptAddressInRPX = 0;    //Address of nn::nex::RC4Encryption::EncryptDecrypt
-
-    //u32 encryptAlgoAddressInRPX = 0;       //Address of nn::nex::EncryptionAlgorithm::Encrypt
-    //u32 decryptAlgoAddressInRPX = 0;       //Address of nn::nex::EncryptionAlgorithm::Decrypt
-
     if(OSGetTitleID()== 0x000500001010ED00){ //Mario Kart 8, values from update v64
         log_print("Mario Kart 8 EUR: Patching functions\n");
-        startAddressInRPX = 0x026774B8;             //Address of MK8 start function in Turbo.rpx v64
-        encryptAddressInRPX = 0x0291A44C;           //Address of MK8 nn::nex::RC4Encryption::Encrypt in Turbo.rpx v64
-        decryptAddressInRPX = 0x0291A4DC;           //Address of MK8 nn::nex::RC4Encryption::Decrypt in Turbo.rpx v64
-        decryptencryptAddressInRPX = 0x0291A2B8;    //Address of MK8 nn::nex::RC4Encryption::EncryptDecrypt in Turbo.rpx v64
+        u32 startAddressInRPX = 0x026774B8;
 
-        //encryptAlgoAddressInRPX = 0x02919E04;       //Address of MK8 nn::nex::EncryptionAlgorithm::Encrypt in Turbo.rpx v64 (???)
-        //decryptAlgoAddressInRPX = 0x02919EA0;       //Address of MK8 nn::nex::EncryptionAlgorithm::Decrypt in Turbo.rpx v64 (???)
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_Encrypt",                  (u32)(u32*)((u32)main_entry_addr + (0x0291A44C-startAddressInRPX)));
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_Decrypt",                  (u32)(u32*)((u32)main_entry_addr + (0x0291A4DC-startAddressInRPX)));
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_EncryptDecrypt",           (u32)(u32*)((u32)main_entry_addr + (0x0291A2B8-startAddressInRPX)));
+
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_pia_common_Crypto_Encrypt",                  (u32)(u32*)((u32)main_entry_addr + (0x029F423C-startAddressInRPX)));
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_pia_common_Crypto_Decrypt",                  (u32)(u32*)((u32)main_entry_addr + (0x029F436C-startAddressInRPX)));
+
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_PacketEncDec_Encode",                    (u32)(u32*)((u32)main_entry_addr + (0x0293F014-startAddressInRPX)));
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_PacketEncDec_Decode",                    (u32)(u32*)((u32)main_entry_addr + (0x0293EDA0-startAddressInRPX)));
+
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_pia_transport_UnreliableProtocol_sendImpl",  (u32)(u32*)((u32)main_entry_addr + (0x02A38644-startAddressInRPX)));
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_pia_transport_UnreliableProtocol_Receive",   (u32)(u32*)((u32)main_entry_addr + (0x02A3833C-startAddressInRPX)));
+
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_Packet_SetPayload",                      (u32)(u32*)((u32)main_entry_addr + (0x02900898-startAddressInRPX)));
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_PRUDPEndPoint_SendPacket",               (u32)(u32*)((u32)main_entry_addr + (0x0294D000-startAddressInRPX)));
     }else if(OSGetTitleID()== 0x0005000010138300){ //Donkey Kong EUR, values from update v17
         log_print("Donkey Kong EUR: Patching functions\n");
-        startAddressInRPX = 0x2EEA934;              //Address of DK:TP start function in rs10_production.rpx v17
-        encryptAddressInRPX = 0x02E78678;           //Address of DK:TP nn::nex::RC4Encryption::Encrypt in rs10_production.rpx v17
-        decryptAddressInRPX = 0x02E78708;           //Address of DK:TP nn::nex::RC4Encryption::Decrypt in rs10_production.rpx v17
-        decryptencryptAddressInRPX = 0x02E784F8;    //Address of DK:TP nn::nex::RC4Encryption::EncryptDecrypt in rs10_production.rpx v17
-    }
 
-    if(startAddressInRPX != 0){
-        if(encryptAddressInRPX != 0) encrypt_ptr                = (u32*)((u32)main_entry_addr + (encryptAddressInRPX-startAddressInRPX));
-        if(decryptAddressInRPX != 0) decrypt_ptr                = (u32*)((u32)main_entry_addr + (decryptAddressInRPX-startAddressInRPX));
-        if(decryptencryptAddressInRPX != 0) decryptencrypt_ptr  = (u32*)((u32)main_entry_addr + (decryptencryptAddressInRPX-startAddressInRPX));
-        //if(encryptAlgoAddressInRPX != 0) encryptAlgo_ptr        = (u32*)((u32)main_entry_addr + (encryptAlgoAddressInRPX-startAddressInRPX));
-        //if(decryptAlgoAddressInRPX != 0) decryptAlgo_ptr        = (u32*)((u32)main_entry_addr + (decryptAlgoAddressInRPX-startAddressInRPX));
+        u32 startAddressInRPX = 0x2EEA934;              //Address of DK:TP start function in rs10_production.rpx v17
 
-        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_Encrypt",          (u32)encrypt_ptr);
-        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_Decrypt",          (u32)decrypt_ptr);
-        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_EncryptDecrypt",   (u32)decryptencrypt_ptr);
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_Encrypt",                  (u32)(u32*)((u32)main_entry_addr + (0x02E78678-startAddressInRPX)));
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_Decrypt",                  (u32)(u32*)((u32)main_entry_addr + (0x02E78708-startAddressInRPX)));
+        setRealAddressByName(method_hooks_game,        method_hooks_size_game, "nn_nex_RC4Encryption_EncryptDecrypt",           (u32)(u32*)((u32)main_entry_addr + (0x02E784F8-startAddressInRPX)));
     }
 
     ApplyPatches();

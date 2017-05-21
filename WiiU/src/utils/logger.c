@@ -14,21 +14,22 @@ static volatile int log_lock = 0;
 
 void log_init(const char * ipString)
 {
-	log_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-	if (log_socket < 0)
-		return;
+	log_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-	struct sockaddr_in connect_addr;
-	memset(&connect_addr, 0, sizeof(connect_addr));
-	connect_addr.sin_family = AF_INET;
-	connect_addr.sin_port = 4405;
-	inet_aton(ipString, &connect_addr.sin_addr);
+   if (log_socket < 0)
+      return;
 
-	if(connect(log_socket, (struct sockaddr*)&connect_addr, sizeof(connect_addr)) < 0)
-	{
-	    socketclose(log_socket);
-	    log_socket = -1;
-	}
+   struct sockaddr_in connect_addr;
+   memset(&connect_addr, 0, sizeof(connect_addr));
+   connect_addr.sin_family = AF_INET;
+   connect_addr.sin_port = 4405;
+   inet_aton(ipString, &connect_addr.sin_addr);
+
+   if (connect(log_socket, (struct sockaddr *)&connect_addr, sizeof(connect_addr)) < 0)
+   {
+      socketclose(log_socket);
+      log_socket = -1;
+}
 }
 
 void log_deinit(void)
