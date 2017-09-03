@@ -18,7 +18,7 @@ Many hard coded values and a a unpolished code for a quick PoC.
 # Usage
 Replace the IP in the main.cpp with Ip of your Computer and compile it.  
 Load the .elf via the [Homebrew Launcher](https://github.com/dimok789/homebrew_launcher).  
-The data will be logged to UDP Port 4405. You can use the [UDP Debug Reader](https://github.com/dimok789/loadiine_gx2/tree/master/udp_debug_reader)
+The data will be logged to TCP Port 4405. You can use the [TCP Debug Reader](https://github.com/Maschell/nn_nex_logging_and_research/blob/master/PC/binaries/tcplogger.jar)
 
 # Credits
 Based on the function-patcher.  
